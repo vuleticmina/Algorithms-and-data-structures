@@ -112,7 +112,7 @@ Head* addInGraph(Head * p,int *n, int name)
     return p;
 
 }
-Node* delete(Node* list, int name)//brisanje elementa
+Node* delete(Node* list, int name)
 {
     Node* current=list;
     Node* prev=list;
@@ -122,7 +122,7 @@ Node* delete(Node* list, int name)//brisanje elementa
         list=NULL;
         return list;
     }
-    if(current->info==name)//potrebno je izbrisati prvi element
+    if(current->info==name)
     {
         list=current->next;
         free(current);
@@ -135,13 +135,13 @@ Node* delete(Node* list, int name)//brisanje elementa
     }
     if(current->info==name)
     {
-        if(current->next==NULL)//Treba obrisati poslednji element
+        if(current->next==NULL)
         {
             prev->next=NULL;
             free(current);
             return list;
         }
-        else//treba obrisati clan koji se ne nalazi ni na pocetku ni na kraju
+        else
         {
 
             prev->next=current->next;
@@ -150,17 +150,17 @@ Node* delete(Node* list, int name)//brisanje elementa
         }
     }
 }
-Node* insert(Node* list, int name)//dodavanje elementa
+Node* insert(Node* list, int name)
 {
     Node* new=malloc(sizeof(Node));
-    if(list==NULL)//ukoliko je lista prazna
+    if(list==NULL)
     {
         new->info=name;
         new->next=NULL;
-        printf("dodato1");
+
         return new;
     }
-    if(list->info>name)//ukoliko element treba dodati na pocetak
+    if(list->info>name)
     {
         new->info=name;
         new->next=list;
@@ -171,11 +171,11 @@ Node* insert(Node* list, int name)//dodavanje elementa
     Node* prev=list;
     while(1)
     {
-        if(current->info==name)//ukoliko x vec postoji u skupu
+        if(current->info==name)
         {
             return list;
         }
-        if(current->info>name)//treba dodati cvor ispred trenutnog
+        if(current->info>name)
         {
             new->info=name;
             new->next=current;
@@ -230,7 +230,7 @@ Head* deleteFromGraph(Head * p, int *n,int name1)
         }
     }
     else{
-        printf("Takav element ne postoji u grafu.\n");
+        printf("Element is not in graph.\n");
     }
     return p;
 }
@@ -244,7 +244,7 @@ Head* addEdge(Head * p, int name1,int name2,int n)
         p[i].list=insert(p[i].list,name2);
     }
     else{
-        printf("Takvi cvorovi ne postoje u grafu\n");
+        printf("Those elements are not in graph\n");
     }
     return p;
 }
@@ -258,7 +258,7 @@ Head* deleteEdge(Head * p, int name1,int name2,int n)
         p[i].list=delete(p[i].list,name2);
     }
     else{
-        printf("Takvi cvorovi ne postoje u grafu\n");
+        printf("Those elements are not in graph\n");
     }
     return p;
 }
@@ -515,14 +515,14 @@ void printStackS(Node* s)
     }
     putchar('\n');
 }
-void print1Maja(Head * p, int start,int finish,int n,int m)
+void print1Player1(Head * p, int start,int finish,int n,int m)
 {
     Node* s1=NULL;
     Node2* s2=NULL;
     int size=0;
     int skinuto=0;
     push(&s1,start);
-    //push2(&s2,p[start].list);
+    push2(&s2,p[start].list);
     while(!(size==m && s1->info==finish))
     {
         int name1;
@@ -557,14 +557,14 @@ void print1Maja(Head * p, int start,int finish,int n,int m)
 
 
 }
-void printAllMaja(Head * p, int start,int finish,int number,int m) {
+void printAllPlayer1(Head * p, int start,int finish,int number,int m) {
     Node *s1 = NULL;
     Node2 *s2 = NULL;
     int size = 0;
     int num=0;
     int skinuto=0;
     push(&s1, start);
-    //push2(&s2,p[start].list);
+    push2(&s2,p[start].list);
     while (num<number) {
         if(size == m && s1->info == finish)
         {
@@ -598,10 +598,10 @@ void printAllMaja(Head * p, int start,int finish,int number,int m) {
 
 
     }
-    //printStackM(s1);
+    printStackM(s1);
 
 }
-void print1Sanja(Head * p, int start,int finish,int n,int m)
+void print1Player2(Head * p, int start,int finish,int n,int m)
 {
 
     Node* s1=NULL;
@@ -669,7 +669,7 @@ void print1Sanja(Head * p, int start,int finish,int n,int m)
 
 
 }
-void printAllSanja(Head * p, int start,int finish,int number,int m)
+void printAllPlayer2(Head * p, int start,int finish,int number,int m)
 {
 
     Node* s1=NULL;
@@ -747,35 +747,35 @@ int main() {
     Head * p=NULL;
     while(k!=0)
     {
-        printf("---MENI---\n0. Izlaz.\n1. Kreiranje prazne strukture podataka za graf.\n2. Dodaj cvor.\n3. Ukloni cvor.\n4. Dodaj granu.\n5. Ukloni granu.\n6. Ispisi reprezentaciju grafa.\n7. Izbrisi graf iz memorije.\n");
+        printf("---MENU---\n0. Exit.\n1. Create empty structure for graph.\n2. Add node.\n3. Delete node.\n4. Add vertex.\n5. Delete vertex.\n6. Print graph.\n7. Delete graph from memory.\n");
         scanf("%d",&k);
         switch(k){
             case 0:
-                printf("Kraj programa.\n");
+                printf("End of program.\n");
                 break;
             case 1:
-                printf("Unesite zeljenu dimenziju grafa\n");
+                printf("Enter dimension of graph\n");
                 scanf("%d",&n);
                 p=createGraph(n);
                 break;
             case 2:
-                printf("Unesite ime cvora koji zelite da dodate (tip int)\n");
+                printf("Enter name of node you want to add (int)\n");
                 scanf("%d",&name);
                 p=addInGraph(p,&n,name);
                 printf("%d",n);
                 break;
             case 3:
-                printf("Unesite ime cvora kojji zelite da izbrisete (tip int)\n");
+                printf("Enter name of node you want to delete (int)\n");
                 scanf("%d",&name);
                 p=deleteFromGraph(p,&n,name);
                 break;
             case 4:
-                printf("Unesite imena cvorova izmdju kojih zelite da dodate granu (tip int)\n");
+                printf("Enter names of nodes between which you want to add vertex (int)\n");
                 scanf("%d %d",&name,&name1);
                 p=addEdge(p,name,name1,n);
                 break;
             case 5:
-                printf("Unesite imena cvorova izmdju kojih zelite da dodate granu (tip int)\n");
+                printf("Enter names of nodes between which you want to delete vertex (int)\n");
                 scanf("%d%d",&name,&name1);
                 p=deleteEdge(p,name,name1,n);
                 break;
@@ -788,7 +788,7 @@ int main() {
                 p=freeGraph(p,n);
                 break;
             default:
-                printf("Niste uneli odgovarajucu opciju.\n");
+                printf("Invalid option.\n");
                 break;
 
         }
@@ -800,14 +800,14 @@ int main() {
     int numberm,numbers;
     while(k!=0)
     {
-        printf("---MENI---\n0. Kraj igre.\n1. Zapocni igru.\n2. Ko je pobenik? \n   (Ispisati najmanji potreban broj poteza Maji i Sanji posebno)\n3. Ispisi bar jedan put.\n4. Ispisi sve puteve.\n");
+        printf("---MENU---\n0. Exit.\n1. Stаrt gamе.\n2. Who is the winner? \n3. Print one path.\n4. Delete all paths.\n");
         scanf("%d",&k);
         switch(k){
             case 0:
-                printf("Kraj igre.\n");
+                printf("Game over.\n");
                 break;
             case 1:
-                printf("Unesite startno polje i ciljno polje (tip int)\n");
+                printf("Enter start and finish (int)\n");
                 int start,finish;
                 scanf("%d %d",&start,&finish);
                 int i,j;
@@ -816,7 +816,7 @@ int main() {
                 if(p[i].name!=start || p[j].name!=finish)
                 {
                     start=-1;
-                    printf("Takvi cvorovi ne postoje!\n");
+                    printf("Invalid input!\n");
                 }
                 break;
             case 2:
@@ -828,42 +828,42 @@ int main() {
                     s=sanja(p,start,finish,&numbers);
                     if(m==-1)
                     {
-                        printf("Maja ne moze da stigne do cilja\n");
+                        printf("Player1 cannot reach finish\n");
                     }
                     else
                     {
-                        printf("Maji je potrebno %d poteza da bi stigla do cilja\n",m);
+                        printf("Player1 needs %d steps to reach the finish\n",m);
                     }
 
                     if(s==-1)
                     {
-                        printf("Sanja ne moze da stigne do cilja\n");
+                        printf("Player2 cannot reach finish\n");
                     }
                     else
                     {
-                        printf("Sanji je potrebno %d poteza da bi stigla do cilja\n",s);
+                        printf("Player2 needs %d steps to reach the finish\n",s);
                     }
-                    if((m!=-1 && s==-1) || (m!=-1 && s!=-1 && m<s)) printf("Maja je pobednik.\n");
-                    else if((s!=-1 && m==-1) || (m!=-1 && s!=-1 && s<m)) printf("Sanja je pobednik.\n");
-                    else printf("Nema pobednika.\n");
+                    if((m!=-1 && s==-1) || (m!=-1 && s!=-1 && m<s)) printf("Player1 is the winner.\n");
+                    else if((s!=-1 && m==-1) || (m!=-1 && s!=-1 && s<m)) printf("Player2 is the winner.\n");
+                    else printf("There is no winner.\n");
                 }
                 else
                 {
-                    printf("Nije uneto startno i ciljno polje.\n");
+                    printf("Start and finish are not entered.\n");
                 }
                 break;
             case 3:
-                printf("Maja: \n");
-                print1Maja(p,start,finish,n,m);
-                printf("Sanja: \n");
-                print1Sanja(p,start,finish,n,s);
+                printf("Player1: \n");
+                print1Player1(p,start,finish,n,m);
+                printf("Player2: \n");
+                print1Player2(p,start,finish,n,s);
                 printf("%d %d\n",numberm,numbers);
                 break;
             case 4:
-                printf("Maja: \n");
-                printAllMaja(p,start,finish,numberm,m);
-                printf("Sanja: \n");
-                printAllSanja(p,start,finish,numbers,s);
+                printf("Player1: \n");
+                printAllPlayer1(p,start,finish,numberm,m);
+                printf("Player2: \n");
+                printAllPlayer2(p,start,finish,numbers,s);
                 break;
         }
     }
