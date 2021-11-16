@@ -8,17 +8,17 @@ struct node* next;
 struct node* prev;
 }Node;
 
-Node* insert(Node* list, int x)//dodavanje elementa
+Node* insert(Node* list, int x)
 {
     Node* new=malloc(sizeof(Node));
-    if(list==NULL)//ukoliko je lista prazna
+    if(list==NULL)
     {
         new->info=x;
         new->next=NULL;
         new->prev=NULL;
         return new;
     }
-    if(list->info>x)//ukoliko element treba dodati na pocetak
+    if(list->info>x)
     {
         new->info=x;
         new->next=list;
@@ -30,11 +30,11 @@ Node* insert(Node* list, int x)//dodavanje elementa
     Node* current=list;
     while(1)
     {
-        if(current->info==x)//ukoliko x vec postoji u skupu
+        if(current->info==x)
         {
             return list;
         }
-        if(current->info>x)//treba dodati cvor ispred trenutnog
+        if(current->info>x)
         {
             new->info=x;
             new->next=current;
@@ -55,7 +55,7 @@ Node* insert(Node* list, int x)//dodavanje elementa
         current=current->next;
     }
 }
-Node* makeList(Node* list)//pravljenje skupa
+Node* makeList(Node* list)
 {
     int x;
     scanf("%d",&x);
@@ -68,7 +68,7 @@ Node* makeList(Node* list)//pravljenje skupa
     return list;
 }
 
-Node* delete(Node* list, int x)//brisanje elementa
+Node* delete(Node* list, int x)
 {
     Node* current=list;
     if(current->info==x && current->next==NULL)
@@ -77,7 +77,7 @@ Node* delete(Node* list, int x)//brisanje elementa
         list=NULL;
         return list;
     }
-    if(current->info==x)//potrebno je izbrisati prvi element
+    if(current->info==x)
     {
         current->next->prev=NULL;
         list=current->next;
@@ -90,13 +90,13 @@ Node* delete(Node* list, int x)//brisanje elementa
     }
     if(current->info==x)
     {
-        if(current->next==NULL)//Treba obrisati poslednji element
+        if(current->next==NULL)
         {
             current->prev->next=NULL;
             free(current);
             return list;
         }
-        else//treba obrisati clan koji se ne nalazi ni na pocetku ni na kraju
+        else
         {
             current->prev->next=current->next;
             current->next->prev=current->prev;
@@ -127,7 +127,7 @@ void printList(Node *list)
     return;
 }
 
-int elementOfList(Node* list,int x)//ispitivanje da li je x element skupa
+int elementOfList(Node* list,int x)
 {
     Node* current=list;
     while(current!=NULL)
@@ -145,7 +145,7 @@ int elementOfList(Node* list,int x)//ispitivanje da li je x element skupa
     return 0;
 
 }
-int cardinality(Node* list)//izracunavanje kardinalnosti
+int cardinality(Node* list)
 {
     int c=0;
     Node* current=list;
@@ -156,7 +156,7 @@ int cardinality(Node* list)//izracunavanje kardinalnosti
     }
     return c;
 }
-Node* intersectionOfLists(Node* list1,Node* list2,Node* list3) //operacija presek
+Node* intersectionOfLists(Node* list1,Node* list2,Node* list3)
 {
     while(list1!=NULL && list2!=NULL)
     {
@@ -180,7 +180,7 @@ Node* intersectionOfLists(Node* list1,Node* list2,Node* list3) //operacija prese
     }
     return list3;
 }
-Node* unionOflists(Node* list1, Node* list2, Node* list3) //operacija unija
+Node* unionOflists(Node* list1, Node* list2, Node* list3)
 {
     while(list1!=NULL || list2!=NULL)
     {
@@ -271,12 +271,12 @@ int main()
     }
     while(k!=7)
     {
-        printf("1. Ucitavanje novog skupa.\n2. Dodavanje clana skupa.\n3. Brisanje clana skupa.\n4. Ispis zadatog skupa.\n5. Operacija.\n6. Brisanje zadatog skupa.\n7. Kraj programa.\nUnesite broj zeljene opcije:\n");
+        printf("1. Enter new set.\n2. Add new element.\n3. Delete one element.\n4. Print set.\n5. Operations.\n6. Delete set.\n7. End of program.\nEnter option:\n");
         scanf("%d",&k);
         switch (k)
         {
-        case 1: //novi skup
-            printf("Unesite koji skup pravite(1-5):\n");
+        case 1:
+            printf("Enter set which you want to create(1-5):\n");
             scanf("%d",&set);
             if(set<6 && set>0)
             {
@@ -286,101 +286,101 @@ int main()
               }
               else
               {
-                printf("ERROR! Dati skup je zauzet!\n");
+                printf("ERROR! The set already exists!\n");
               }
             }
             else
             {
-              printf("ERROR! Uneli ste nedozvoljenu vrednost!\n");
+              printf("ERROR! Invalid value!\n");
             }
             break;
-        case 2: //dodavanje el.
-            printf("Unesite skup i element za dodavanje:\n");
+        case 2:
+            printf("Enter set and element you want to add:\n");
             scanf("%d%d",&set,&element);
             array[set-1]=insert(array[set-1],element);
             break;
-        case 3: //brisanje elementa
-            printf("Unesite skup i element za brisanje");
+        case 3:
+            printf("Enter set and element you want to delete:\n");
             scanf("%d%d",&set,&element);
             array[set-1]=delete(array[set-1], element);
             break;
-        case 4: //ispis skupa
-            printf("Unesite skup koji zelite da ispisete:\n");
+        case 4:
+            printf("Enter set you want to print:\n");
             scanf("%d",&set);
             printList(array[set-1]);
             break; 
-        case 5: //operacije
-            printf("1. Provera pripadnosti elementa.\n2. Odredjivanje kardinalnosti skupa.\n3. Unija.\n4. Presek.\n5. Razlika.\nUnesi zeljenu opciju:\n");
+        case 5:
+            printf("1. Check if element is in set.\n2. Find number of elements.\n3. Union.\n4. Intersection.\n5. Difference.\nEnter option:\n");
             scanf("%d",&k);
             switch (k)
             {
-            case 1: //pripadnost
-                printf("Unesite skup i element ciju pripadnost zelite da proverite\n");
+            case 1: /
+                printf("Enter set and element you want to check\n");
                 scanf("%d%d",&set,&element);
                 if(elementOfList(array[set-1],element))
                 {
-                    printf("Element %d jeste element skupa %d.\n",element,set);
+                    printf("Element %d is element of set %d.\n",element,set);
                 }
                 else
                 {
-                    printf("Element %d nije element skupa %d.\n",element,set);
+                    printf("Element %d is not element of set %d.\n",element,set);
                 }
                 break;
-            case 2: //kardinalnost
-                printf("Unesite skup ciju kardinalnost zelite da odredite.\n");
+            case 2:
+                printf("Enter set.\n");
                 scanf("%d",&set);
-                printf("Kardinalnost skupa %d je %d.\n",set,cardinality(array[set-1]));
+                printf("Number of elements of set %d is %d.\n",set,cardinality(array[set-1]));
                 break;
             case 3:
-                printf("Unesite skupove nad kojima zelite da vrsite operaciju:\n");
+                printf("Enter sets on which you want to operate:\n");
                 scanf("%d%d",&set,&set1);
-                printf("Unesite skup u koji zelite da smestite rezultat:\n");
+                printf("Enter set where you want to save the result:\n");
                 scanf("%d",&set2);
                 if(array[set2-1]==NULL)
                 {
                     array[set2-1]=unionOflists(array[set-1],array[set1-1],array[set2-1]);
                 }
-                else printf("ERROR! Skup u koji zelite da smestite rezultat je zauzet!\n");
+                else printf("ERROR! The set where you want to save the result is taken!\n");
                 break;
 
             case 4:
-                printf("Unesite skupove nad kojima zelite da vrsite operaciju:\n");
+                printf("Enter sets on which you want to operate:\n");
                 scanf("%d%d",&set,&set1);
-                printf("Unesite skup u koji zelite da smestite rezultat:\n");
+                printf("Enter set where you want to save the result:\n");
                 scanf("%d",&set2);
                 if(array[set2-1]==NULL)
                 {
                     array[set2-1]=intersectionOfLists(array[set-1],array[set1-1],array[set2-1]);
                 }
-                else printf("ERROR! Skup u koji zelite da smestite rezultat je zauzet!\n");
+                else printf("ERROR! The set where you want to save the result is taken!\n");
                 break;
             case 5:
-                printf("Unesite skupove nad kojima zelite da vrsite operaciju:\n");
+                printf("Enter sets on which you want to operate:\n");
                 scanf("%d%d",&set,&set1);
-                printf("Unesite skup u koji zelite da smestite rezultat:\n");
+                printf("Enter set where you want to save the result:\n");
                 scanf("%d",&set2);
                 if(array[set2-1]==NULL)
                 {
                     array[set2-1]=differenceOfLists(array[set-1],array[set1-1],array[set2-1]);
                 }
-                else printf("ERROR! Skup u koji zelite da smestite rezultat je zauzet!\n");
+                else printf("ERROR! The set where you want to save the result is taken!\n");
                 break;
 
             default:
-                printf("ERROR! Niste uneli ponudjenu opciju.\n");
+                printf("ERROR! Invalid option.\n");
                 break;
             }
             break;
         case 6:
-            printf("Unesite koji skup zelite da izbrisete:\n");
+            printf("Enter set you want to delete:\n");
             scanf("%d",&set);
             array[set-1]=deleteList(array[set-1]);
             break;
         case 7:
-            printf("Kraj programa!\n");
+            printf("End of program!\n");
             break;
         default:
-            printf("ERROR! Niste uneli ponudjenu opciju.\n");
+            printf("ERROR! Invalid option.\n");
             break;
         }
     }
