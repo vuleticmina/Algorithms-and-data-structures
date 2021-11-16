@@ -23,17 +23,17 @@ typedef struct queue
     Node* rear;
 }Queue;
 
-Node* insertInList(Node* list, Student x)//dodavanje studenta u ulancanu listu
+Node* insertInList(Node* list, Student x)
 {
     Node* new=malloc(sizeof(Node));
-    if(list==NULL)//ukoliko je lista prazna
+    if(list==NULL)
     {
         new->info=x;
         new->next=NULL;
         new->prev=NULL;
         return new;
     }
-    else //u suprotnom samo dodajemo element na pocetak liste (kako nije bitan poredak clanova najefikasnije je dodati ga na pocetak)
+    else
     {
         new->info=x;
         new->next=list;
@@ -44,10 +44,10 @@ Node* insertInList(Node* list, Student x)//dodavanje studenta u ulancanu listu
     }
     
 }
-Node* makeList(Node* list, int * counter)//pravljenje skupa
+Node* makeList(Node* list, int * counter)
 {
     Student x;
-    printf("Studente unosite u formi (ime prezime index studijskiProgram godina).\nZa kraj ucitavanja uneti 0 0 0 0 0\n");
+    printf("Enter students in form (name surname studentID fieldOfStudy year).\nTo finish input enter 0 0 0 0 0\n");
     scanf("%s %s %d %s %d", x.name, x.surname ,&x.index, x.studyProgram, &x.year);
     while(x.index!=0)
     {
@@ -58,12 +58,12 @@ Node* makeList(Node* list, int * counter)//pravljenje skupa
     printf("%d\n", *counter);
     return list;
 }
-Node* deleteFromList(Node* list, Node* temp)//nema alokacije jer taj element kasnije uvezemo u red
+Node* deleteFromList(Node* list, Node* temp)
 {
     
-    if(temp->prev==NULL)//ukoliko se brise prvi clan
+    if(temp->prev==NULL)
     {
-        if(temp->next==NULL)//ukoliko je to i jedini clan
+        if(temp->next==NULL)
         {
             return NULL;
         }
@@ -72,7 +72,7 @@ Node* deleteFromList(Node* list, Node* temp)//nema alokacije jer taj element kas
         temp->next=NULL;
         return list;
     }
-    else if(temp->next==NULL)//ukoliko se brise poslednji clan
+    else if(temp->next==NULL)
     {
         temp->prev->next=NULL;
         temp->prev=NULL;
@@ -88,7 +88,7 @@ Node* deleteFromList(Node* list, Node* temp)//nema alokacije jer taj element kas
     }
 
 }
-int empty(Queue* q)//da li je red prazan
+int empty(Queue* q)
 {
     if(q->rear==NULL) return 1;
     else return 0;
@@ -109,16 +109,16 @@ Student get(Queue* q)
 {
     if(empty(q))
     {
-        printf("Red je prazan!\n");
+        printf("Queue is empty!\n");
     }
     else
     {
         return q->front->info;
     }
 }
-Queue* insertInQueue(Queue* q, Node* temp)//dodavanje u red
+Queue* insertInQueue(Queue* q, Node* temp)
 {
-    //temp.next i temp.prev su vec postavljeni na null prilikom brisanja iz liste
+
     if (empty(q))
     {
         q->front=temp;
@@ -168,9 +168,9 @@ Queue* deleteFromQueue(Queue* q)
     return q;
 
 }
-Queue* move(Queue* q)//premestanje na kraj reda
+Queue* move(Queue* q)
 {
-    //isto kao brisanje samo nema alokacije memorije jer nam je taj cvor potreban jos uvek
+
     Node* p=q->front;
     q->front=p->next;
     if(q->front==NULL)
@@ -211,7 +211,7 @@ void admission(Queue* q, double X)
         counter++;
 
     }
-    printf("Broj izvrsenih koraka simulacije je: %d\n",counter);
+    printf("Number of iterations is: %d\n",counter);
 }
 
 
@@ -227,7 +227,7 @@ int main()
 
     while(k!=4)
     {
-        printf("\n---MENI---\n\n1. Ucitavanje studenata.\n2. Premestanje  studenata u red cekanja.\n3. Upis.\n4. Zavrsi program.\nUnesite zeljenu opciju:\n");
+        printf("\n---MENU---\n\n1. Enter students.\n2. Move students to waiting queue.\n3. Enrollment.\n4. Exit.\nEnter option:\n");
         scanf("%d",&k);
         switch (k)
         {
@@ -238,31 +238,31 @@ int main()
             if(list!=NULL)
             {
                 q=addAll(q,list,counter);
-                printf("Svi studenti su uspesno dodati u red cekanja\n");
+                printf("Students are added to waiting queue\n");
             }
             else 
             {
-                printf("ERROR! Studenti jos uvek nisu ucitani\n");
+                printf("ERROR! Students are not entered\n");
             }
             break;
         case 3:
             if (counter!=0 && full(q,counter))
             {
-                printf("Unesite zadati prag:\n");
+                printf("Enter limit for enrollment:\n");
                 if(X>=0 && X<=0.5)
                 {
                     scanf("%lf",&X);
                     admission(q,X);
                 }
-                else printf("ERROR! Niste uneli odgovarajuc prag!\n");
+                else printf("ERROR! Invalid limit!\n");
             }
-            else printf("ERROR! Studenti nisu ucitani ili studenti nisu prebaceni u red cekanja\n");
+            else printf("ERROR! Students are not entered or not moved to queue\n");
             break;
         case 4:
-            printf("Kraj programa.\n");
+            printf("End of program.\n");
             break;
         default:
-            printf("ERROR! Niste uneli odgovarajucu vrednost.\n");
+            printf("ERROR! Invalid option.\n");
             break;
         }
 
